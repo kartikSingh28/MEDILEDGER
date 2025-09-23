@@ -2,16 +2,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("");
   const [roleOpen, setRoleOpen] = useState(false);
   const navigate = useNavigate();
 
   const roles = [
-    { value: 'patient', label: 'Patient' },
-    { value: 'hospital_staff', label: 'Hospital Staff' }
+    { value: "patient", label: "Patient" },
+    { value: "hospital_staff", label: "Hospital Staff" },
   ];
 
   const toggleRoleDropdown = () => setRoleOpen(!roleOpen);
@@ -25,17 +25,20 @@ export default function SignupPage() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("Passwords do not match ❌");
       return;
     }
 
     if (!role) {
-      alert("Please select a role");
+      alert("Please select a role ❌");
       return;
     }
 
-    alert(`Signing up as ${role}\nEmail: ${email}`);
-    navigate('/login');
+    // ✅ Simulate successful signup
+    alert(`Welcome ${role === "patient" ? "Patient" : "Hospital Staff"} 🎉\nEmail: ${email}`);
+
+    // ✅ Redirect to Hospital Board
+    navigate("/hospital-board");
   };
 
   return (
@@ -93,15 +96,14 @@ export default function SignupPage() {
               onClick={toggleRoleDropdown}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-left bg-white flex justify-between items-center focus:ring-2 focus:ring-cyan-500 focus:outline-none"
             >
-              <span>{role ? roles.find(r => r.value === role)?.label : 'Select your role'}</span>
+              <span>{role ? roles.find((r) => r.value === role)?.label : "Select your role"}</span>
               <svg
                 className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${
-                  roleOpen ? 'transform rotate-180' : ''
+                  roleOpen ? "transform rotate-180" : ""
                 }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
@@ -132,7 +134,7 @@ export default function SignupPage() {
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600">
-            Already have an account?{' '}
+            Already have an account?{" "}
             <a href="/login" className="text-cyan-600 font-medium hover:underline">
               Login
             </a>

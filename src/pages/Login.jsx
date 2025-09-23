@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    alert(`Logging in with\nEmail: ${email}\nPassword: ${password}`);
+
+    // For now: ignore auth, just redirect
+    if (email && password) {
+      navigate("/patient");
+    }
   };
 
   return (
@@ -67,8 +73,11 @@ export default function LoginPage() {
 
           {/* Signup */}
           <p className="text-center text-sm text-gray-600">
-            Don’t have an account?{' '}
-            <a href="/signup" className="text-cyan-600 font-medium hover:underline">
+            Don’t have an account?{" "}
+            <a
+              href="/signup"
+              className="text-cyan-600 font-medium hover:underline"
+            >
               Sign Up
             </a>
           </p>
