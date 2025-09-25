@@ -1,21 +1,26 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import PatientDashboard from "./pages/PatientDashBoard";
-import HospitalDashboard from "./pages/HospitalDashboard";
+import SignupPage from "./pages/Signup";
+import LoginPage from "./pages/Login";
+import PatientDashboard from "../src/pages/PatientDashBoard";
+import HospitalBoard from "../src/pages/HospitalDashboard"; // create this if missing
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
+        {/* 👇 Landing page will come first at "/" */}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/patient" element={<PatientDashboard />} />
-        <Route path="/hospital-board" element={<HospitalDashboard />} />
+
+        {/* Auth */}
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+
+        {/* Dashboards */}
+        <Route path="/patient-dashboard" element={<PatientDashboard />} />
+        <Route path="/hospital-board" element={<HospitalBoard />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

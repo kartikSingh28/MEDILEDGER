@@ -2,22 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* General Reset and Global Styles */
+html, body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background: #0f172a; /* Dark background matching your gradient */
 }
 
+/* Root Styles */
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  /* Remove padding here to avoid white gaps */
+  padding: 0;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Logo Animation */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -37,25 +55,126 @@
   }
 }
 
+/* Card Styles */
 .card {
   padding: 2em;
 }
 
+/* Read the Docs Text */
 .read-the-docs {
   color: #888;
 }
-/* Prevent horizontal scroll anywhere */
-html, body {
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-  background: white; /* ✅ remove the grey background */
+
+/* Remove fixed positioning from hero and navbar */
+.hero-section {
+  position: relative;
+  z-index: 1;
 }
 
-#root {
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+  /* You can add bg-opacity or backdrop-blur for navbar */
+  background-color: rgba(15, 23, 42, 0.85); /* semi-transparent dark */
+  backdrop-filter: saturate(180%) blur(10px);
+}
+
+/* Particle Background Fix */
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;  /* Keep particles in the background */
 }
+
+/* Scrollable Section */
+.scrollable-section {
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 80px; /* Space for fixed navbar height */
+  margin-bottom: 2rem;
+}
+
+/* Additional Styles for Sections */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1.5rem; /* More breathing space */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section:not(.hero-section) {
+  padding-top: 6rem; /* Give enough space below the fixed navbar */
+}
+
+/* Styling for Why Choose Section */
+.scrollable-section .features-section {
+  padding-top: 0;
+  margin-top: 4rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-bottom: 4rem;
+}
+
+/* --- New CSS for Diagonal Blockchain Animation --- */
+
+/* Keyframe for the diagonal movement, adjusted for a smoother loop and rotation */
+@keyframes diagonal-move {
+  0% {
+    transform: translate(-100vw, -100vh) scale(0.5) rotate(45deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.25;
+  }
+  75% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(100vw, 100vh) scale(1.2) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+/* Base style for the animated chain elements */
+.chain-element {
+  position: absolute;
+  width: 25px; /* Smaller for a chain link look */
+  height: 25px;
+  background-color: #00ffff; /* Your preferred color */
+  border-radius: 4px; /* Slightly rounded squares */
+  transform-origin: center center;
+  animation: diagonal-move 20s linear infinite; /* 20s duration, linear, infinite loop */
+  z-index: -1; /* Placed behind the main content */
+  box-shadow: 0 0 5px #00ffff; /* subtle glow */
+}
+
+/* Use a pseudo-element to create a connecting line */
+.chain-element::before {
+  content: '';
+  position: absolute;
+  width: 150px; /* Length of the connecting line */
+  height: 2px;
+  background-color: #00ffff;
+  transform: rotate(-45deg); /* Match the diagonal angle */
+  top: calc(50% - 1px);
+  left: -75px; /* Position the line to connect to the next block */
+  opacity: 0.5;
+}
+
+/* Stagger the animations with a negative delay to avoid the blank screen */
+.chain-element:nth-child(1) { animation-delay: 0s; }
+.chain-element:nth-child(2) { animation-delay: -2s; }
+.chain-element:nth-child(3) { animation-delay: -4s; }
+.chain-element:nth-child(4) { animation-delay: -6s; }
+.chain-element:nth-child(5) { animation-delay: -8s; }
+.chain-element:nth-child(6) { animation-delay: -10s; }
+.chain-element:nth-child(7) { animation-delay: -12s; }
+.chain-element:nth-child(8) { animation-delay: -14s; }
+.chain-element:nth-child(9) { animation-delay: -16s; }
+.chain-element:nth-child(10) { animation-delay: -18s; }
